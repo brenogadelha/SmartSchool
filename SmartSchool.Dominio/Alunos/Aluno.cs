@@ -28,7 +28,6 @@ namespace SmartSchool.Dominio.Alunos
         {
             var aluno = new Aluno()
             {
-
                 ID = Guid.NewGuid(),
                 Nome = alunoDto.Nome,
                 Sobrenome = alunoDto.Sobrenome,
