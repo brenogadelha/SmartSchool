@@ -1,4 +1,5 @@
-﻿using SmartSchool.Comum.Dominio;
+﻿using Newtonsoft.Json;
+using SmartSchool.Comum.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartSchool.Dominio.Alunos
 {
-    public class Aluno : IEntidadeAgregavel<int>
+    public class Aluno : IEntidade
     {
         public int ID { get; set; }
         public int Matricula { get; set; }
@@ -17,7 +18,9 @@ namespace SmartSchool.Dominio.Alunos
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public bool Ativo { get; set; }
-        public IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
+
+        //[JsonIgnore]
+        //public IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
 
         public Aluno() { }
         public Aluno(int id, string nome, string sobrenome, string telefone)

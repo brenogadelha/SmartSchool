@@ -11,30 +11,42 @@ namespace SmartSchool.Dados.Modulos.Usuarios
 			builder.ToTable("ALUNO");
 
 			builder.Property(b => b.ID)
-					.HasColumnName("USUA_ID_USUARIO")
+					.HasColumnName("ALUN_ID_ALUNO")
+					.ValueGeneratedNever()
+					.IsRequired();
+
+			builder.Property(b => b.Matricula)
+					.HasColumnName("ALUN_COD_ALUNO")
 					.ValueGeneratedNever()
 					.IsRequired();
 
 			builder.Property(b => b.Ativo)
-				   .HasColumnName("USUA_IN_ATIVO")
+				   .HasColumnName("ALUN_IN_ATIVO")
 				   .IsRequired();
 
 			builder.Property(b => b.Nome)
-					.HasColumnName("USUA_NM_NOME")
+					.HasColumnName("ALUN_NM_NOME")
 					.HasMaxLength(32)
 					.IsRequired();
 
 			builder.Property(b => b.Sobrenome)
-					.HasColumnName("USUA_NM_SOBRENOME")
+					.HasColumnName("ALUN_NM_SOBRENOME")
 					.HasMaxLength(128)
 					.IsRequired();
 
 			builder.Property(b => b.DataNascimento)
-					.HasColumnName("USUA_DT_NASCIMENTO")
+					.HasColumnName("ALUN_DT_NASCIMENTO")
+					.IsRequired();
+
+			builder.Property(b => b.DataFim)
+					.HasColumnName("ALUN_DT_FIM");
+
+			builder.Property(b => b.DataInicio)
+					.HasColumnName("ALUN_DT_INICIO")
 					.IsRequired();
 
 			builder.Property(b => b.Telefone)
-					.HasColumnName("USUA_NR_TELEFONE")
+					.HasColumnName("ALUN_NR_TELEFONE")
 					.HasMaxLength(16);		   
 		}
 	}

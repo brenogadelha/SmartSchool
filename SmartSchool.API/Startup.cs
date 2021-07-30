@@ -32,8 +32,8 @@ namespace SmartSchool.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SmartContexto>(options =>
-                options.UseSqlServer(AppSettings.Data.DefaultConnectionString));
+            //services.AddDbContext<SmartContexto>(options =>
+            //    options.UseSqlServer(AppSettings.Data.DefaultConnectionString));
 
             services.AddSwaggerGen(options =>
 

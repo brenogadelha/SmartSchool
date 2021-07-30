@@ -1,4 +1,5 @@
-﻿using SmartSchool.Dominio.Disciplinas;
+﻿using SmartSchool.Comum.Dominio;
+using SmartSchool.Dominio.Disciplinas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartSchool.Dominio.Professores
 {
-    public class Professor
+    public class Professor : IEntidade
     {
         public int ID { get; set; }
         public string Nome { get; set; }
