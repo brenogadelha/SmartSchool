@@ -1,5 +1,4 @@
-﻿
-using SmartSchool.Aplicacao.Alunos.Interface;
+﻿using SmartSchool.Aplicacao.Alunos.Interface;
 using SmartSchool.Comum.Mapeador;
 using SmartSchool.Comum.Repositorio;
 using SmartSchool.Dominio.Alunos;
@@ -10,7 +9,7 @@ using System.Text;
 
 namespace SmartSchool.Aplicacao.Alunos.Servico
 {
-   public class AlunoServico : IAlunoServico
+    public class AlunoServico : IAlunoServico
     {
         private readonly IRepositorio<Aluno> _alunoRepositorio;
         public AlunoServico(IRepositorio<Aluno> alunoRepositorio)
@@ -18,6 +17,11 @@ namespace SmartSchool.Aplicacao.Alunos.Servico
             this._alunoRepositorio = alunoRepositorio;
         }
 
-        public IEnumerable<ObterAlunoDto> Obter() => this._alunoRepositorio.Obter().MapearParaDto<ObterAlunoDto>();
+        public IEnumerable<ObterAlunoDto> Obter()
+        {
+            var alunos = this._alunoRepositorio.Obter();
+
+            return alunos.MapearParaDto<ObterAlunoDto>();
+        }
     }
 }

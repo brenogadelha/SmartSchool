@@ -12,7 +12,7 @@ namespace SmartSchool.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlunoController : ControllerBase
+    public class AlunoController : Controller
     {
         private readonly IAlunoServico _alunoServico;
 
@@ -23,7 +23,7 @@ namespace SmartSchool.API.Controllers
 
         // GET: api/<AlunoController>
         [HttpGet]
-        public IActionResult ObterTodos()
+        public OkObjectResult ObterTodos()
         {
             return Ok(_alunoServico.Obter());
         }

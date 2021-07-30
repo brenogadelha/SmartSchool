@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SmartSchool.Dominio.Alunos;
+using SmartSchool.Dto.Dtos.Alunos.Obter;
 
 namespace SmartSchool.Ioc.Modulos
 {
@@ -6,8 +8,8 @@ namespace SmartSchool.Ioc.Modulos
     {
         public PerfilDominioParaDto()
         {
-            // Pagina
-            //this.CreateMap<Pagina, ObterPaginaDto>();
+            // Aluno
+            this.CreateMap<Aluno, ObterAlunoDto>();
         }
     }
 }
