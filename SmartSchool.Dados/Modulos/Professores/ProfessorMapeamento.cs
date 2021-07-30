@@ -20,6 +20,11 @@ namespace SmartSchool.Dados.Modulos.Usuarios
 					.HasColumnName("PROF_NM_NOME")
 					.HasMaxLength(32)
 					.IsRequired();
+
+			builder.Property(b => b.Matricula)
+					.HasColumnName("PROF_COD_PROFESSOR")
+					.ValueGeneratedNever()
+					.IsRequired();
 		}
 	}
 }

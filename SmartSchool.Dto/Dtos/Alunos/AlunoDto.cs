@@ -6,7 +6,6 @@ namespace SmartSchool.Dto.Dtos.Alunos
 {
    public class AlunoDto
     {
-        public int ID { get; set; }
         public int Matricula { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

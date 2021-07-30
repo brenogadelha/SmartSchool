@@ -15,7 +15,7 @@ namespace SmartSchool.Dados.Migrations
                 schema: "SmartSchool",
                 columns: table => new
                 {
-                    ALUN_ID_ALUNO = table.Column<int>(nullable: false),
+                    ALUN_ID_ALUNO = table.Column<Guid>(nullable: false),
                     ALUN_COD_ALUNO = table.Column<int>(nullable: false),
                     ALUN_NM_NOME = table.Column<string>(maxLength: 32, nullable: false),
                     ALUN_NM_SOBRENOME = table.Column<string>(maxLength: 128, nullable: false),
@@ -35,7 +35,8 @@ namespace SmartSchool.Dados.Migrations
                 schema: "SmartSchool",
                 columns: table => new
                 {
-                    PROF_ID_PROFESSOR = table.Column<int>(nullable: false),
+                    PROF_ID_PROFESSOR = table.Column<Guid>(nullable: false),
+                    PROF_COD_PROFESSOR = table.Column<int>(nullable: false),
                     PROF_NM_NOME = table.Column<string>(maxLength: 32, nullable: false)
                 },
                 constraints: table =>
@@ -50,25 +51,26 @@ namespace SmartSchool.Dados.Migrations
                 {
                     DISC_ID_DISCIPLINA = table.Column<int>(nullable: false),
                     DISC_NM_NOME = table.Column<string>(maxLength: 32, nullable: false),
-                    DISC_ID_PROFESSOR = table.Column<int>(maxLength: 128, nullable: false)
+                    DISC_ID_PROFESSOR = table.Column<int>(maxLength: 128, nullable: false),
+                    ProfessorID = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DISCIPLINA", x => x.DISC_ID_DISCIPLINA);
                     table.ForeignKey(
-                        name: "FK_DISCIPLINA_PROFESSOR_DISC_ID_PROFESSOR",
-                        column: x => x.DISC_ID_PROFESSOR,
+                        name: "FK_DISCIPLINA_PROFESSOR_ProfessorID",
+                        column: x => x.ProfessorID,
                         principalSchema: "SmartSchool",
                         principalTable: "PROFESSOR",
                         principalColumn: "PROF_ID_PROFESSOR",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DISCIPLINA_DISC_ID_PROFESSOR",
+                name: "IX_DISCIPLINA_ProfessorID",
                 schema: "SmartSchool",
                 table: "DISCIPLINA",
-                column: "DISC_ID_PROFESSOR");
+                column: "ProfessorID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

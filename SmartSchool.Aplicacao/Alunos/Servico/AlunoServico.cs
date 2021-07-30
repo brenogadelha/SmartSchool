@@ -2,6 +2,7 @@
 using SmartSchool.Comum.Mapeador;
 using SmartSchool.Comum.Repositorio;
 using SmartSchool.Dominio.Alunos;
+using SmartSchool.Dto.Dtos.Alunos;
 using SmartSchool.Dto.Dtos.Alunos.Obter;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,13 @@ namespace SmartSchool.Aplicacao.Alunos.Servico
             var alunos = this._alunoRepositorio.Obter();
 
             return alunos.MapearParaDto<ObterAlunoDto>();
+        }
+
+        public void CriarAluno(AlunoDto alunoDto)
+        {
+            var aluno = Aluno.Criar(alunoDto);
+
+            this._alunoRepositorio.Adicionar(aluno);
         }
     }
 }

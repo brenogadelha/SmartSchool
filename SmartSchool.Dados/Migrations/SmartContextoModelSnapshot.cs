@@ -22,9 +22,10 @@ namespace SmartSchool.Dados.Migrations
 
             modelBuilder.Entity("SmartSchool.Dominio.Alunos.Aluno", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("ALUN_ID_ALUNO")
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnName("ALUN_IN_ATIVO")
@@ -80,6 +81,9 @@ namespace SmartSchool.Dados.Migrations
                         .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
+                    b.Property<Guid?>("ProfessorID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("ProfessorId")
                         .HasColumnName("DISC_ID_PROFESSOR")
                         .HasColumnType("int")
@@ -87,15 +91,19 @@ namespace SmartSchool.Dados.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("ProfessorID");
 
                     b.ToTable("DISCIPLINA");
                 });
 
             modelBuilder.Entity("SmartSchool.Dominio.Professores.Professor", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .HasColumnName("PROF_ID_PROFESSOR")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Matricula")
+                        .HasColumnName("PROF_COD_PROFESSOR")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -113,9 +121,7 @@ namespace SmartSchool.Dados.Migrations
                 {
                     b.HasOne("SmartSchool.Dominio.Professores.Professor", "Professor")
                         .WithMany("Disciplinas")
-                        .HasForeignKey("ProfessorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfessorID");
                 });
 #pragma warning restore 612, 618
         }

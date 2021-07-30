@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.Aplicacao.Alunos.Interface;
+using SmartSchool.Dto.Dtos.Alunos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SmartSchool.API.Controllers
@@ -49,69 +51,68 @@ namespace SmartSchool.API.Controllers
         //    return Ok(aluno);
         //}
         //// POST api/<AlunoController>
-        //[HttpPost]
-        //public IActionResult Criar(Aluno aluno)
-        //{
-        //    this._alunoServico.Add(aluno);
-        //    if (this._alunoServico.SaveChanges())
-        //    {
-        //        return Ok(aluno);
-        //    }
+        [HttpPost]
+        public StatusCodeResult Criar(AlunoDto aluno)
+        {
+            this._alunoServico.CriarAluno(aluno);
 
-        //    return BadRequest("Aluno não cadastrado.");
-        //}
+            return this.StatusCode((int)HttpStatusCode.Created);
+        }
 
-        //// PUT api/<AlunoController>/5
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Aluno aluno)
-        //{
-        //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
+            //    return BadRequest("Aluno não cadastrado.");
+            //}
 
-        //    if (alunoObtido == null)
-        //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
+            //// PUT api/<AlunoController>/5
+            //[HttpPut("{id}")]
+            //public IActionResult Put(int id, Aluno aluno)
+            //{
+            //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
 
-        //    this._alunoServico.Update(aluno);
-        //    if (this._alunoServico.SaveChanges())
-        //    {
-        //        return Ok(aluno);
-        //    }
+            //    if (alunoObtido == null)
+            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
 
-        //    return BadRequest("Aluno não atualizado.");
-        //}
+            //    this._alunoServico.Update(aluno);
+            //    if (this._alunoServico.SaveChanges())
+            //    {
+            //        return Ok(aluno);
+            //    }
 
-        //[HttpPatch("{id}")]
-        //public IActionResult Patch(int id, Aluno aluno)
-        //{
-        //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
+            //    return BadRequest("Aluno não atualizado.");
+            //}
 
-        //    if (alunoObtido == null)
-        //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
+            //[HttpPatch("{id}")]
+            //public IActionResult Patch(int id, Aluno aluno)
+            //{
+            //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
 
-        //    this._alunoServico.Update(aluno);
-        //    if (this._alunoServico.SaveChanges())
-        //    {
-        //        return Ok(aluno);
-        //    }
+            //    if (alunoObtido == null)
+            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
 
-        //    return BadRequest("Aluno não atualizado.");
-        //}
+            //    this._alunoServico.Update(aluno);
+            //    if (this._alunoServico.SaveChanges())
+            //    {
+            //        return Ok(aluno);
+            //    }
 
-        //// DELETE api/<AlunoController>/5
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    var aluno = _alunoServico.ObterAlunoPorId(id);
+            //    return BadRequest("Aluno não atualizado.");
+            //}
 
-        //    if (aluno == null)
-        //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
+            //// DELETE api/<AlunoController>/5
+            //[HttpDelete("{id}")]
+            //public IActionResult Delete(int id)
+            //{
+            //    var aluno = _alunoServico.ObterAlunoPorId(id);
 
-        //    this._alunoServico.Remove(aluno);
-        //    if (this._alunoServico.SaveChanges())
-        //    {
-        //        return Ok("Aluno deletado.");
-        //    }
+            //    if (aluno == null)
+            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
 
-        //    return BadRequest("Aluno não deletado.");
-        //}
-    }
+            //    this._alunoServico.Remove(aluno);
+            //    if (this._alunoServico.SaveChanges())
+            //    {
+            //        return Ok("Aluno deletado.");
+            //    }
+
+            //    return BadRequest("Aluno não deletado.");
+            //}
+        }
 }

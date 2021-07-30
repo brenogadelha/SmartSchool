@@ -12,7 +12,6 @@ namespace SmartSchool.Dados.Modulos.Usuarios
 
 			builder.Property(b => b.ID)
 					.HasColumnName("ALUN_ID_ALUNO")
-					.ValueGeneratedNever()
 					.IsRequired();
 
 			builder.Property(b => b.Matricula)
