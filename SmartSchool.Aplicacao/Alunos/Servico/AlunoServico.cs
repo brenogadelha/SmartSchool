@@ -63,7 +63,7 @@ namespace SmartSchool.Aplicacao.Alunos.Servico
         private Aluno ObterAlunoDominio(Guid idAluno)
         {
             if (idAluno.Equals(Guid.Empty))
-                throw new ArgumentNullException(null, "Id nulo do Usuario (não foi informado).");
+                throw new ArgumentNullException(null, "Id nulo do Aluno (não foi informado).");
 
 
             var aluno = this._alunoRepositorio.Obter(new BuscaDeAlunoPorIdEspecificacao(idAluno));
