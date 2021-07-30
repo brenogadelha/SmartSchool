@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.Aplicacao.Alunos.Interface;
+using SmartSchool.Dominio.Alunos;
 using SmartSchool.Dto.Dtos.Alunos;
+using SmartSchool.Dto.Dtos.Alunos.Obter;
+using SmartSchool.Dto.Dtos.TratamentoErros;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +24,41 @@ namespace SmartSchool.API.Controllers
             this._alunoServico = alunoServico;
         }
 
-        // GET: api/<AlunoController>
+        /// <summary>
+		/// Obtem listagem de todos os Usuarios cadastrados
+		/// </summary>
+		/// <returns>Lista de todos os Usuarios</returns>
+		/// <response code="200">Lista de Usuarios</response> 
+		/// <response code="500">Erro inesperado</response> 
+		[HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ObterAlunoDto>))]
+        [ProducesResponseType(500, Type = typeof(TratamentoErroDto))]
         [HttpGet]
         public OkObjectResult ObterTodos()
         {
             return Ok(_alunoServico.Obter());
         }
 
-        // GET api/<AlunoController>/5
-        //[HttpGet("{id}")]
-        //public IActionResult ObterPorId(int id)
-        //{
-        //    var aluno = _alunoServico.ObterAlunoPorId(id);
+        /// <summary>
+		/// Obtém dados de um Aluno específico por ID
+		/// </summary>
+		/// <returns>Dados do Aluno solicitado</returns>
+		/// <response code="200">Obtem dados do Aluno solicitado</response>
+		/// <response code="404">Aluno inexistente</response>
+		/// <response code="500">Erro inesperado</response>
+        [ProducesResponseType(200, Type = typeof(ObterAlunoDto))]
+        [ProducesResponseType(404, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(500, Type = typeof(TratamentoErroDto))]
+        [HttpGet("{id}")]
+        public OkObjectResult ObterPorId(Guid id)
+        {
+            var aluno = _alunoServico.ObterPorId(id);
 
-        //    if (aluno == null)
-        //        throw new Exception($"Não existe aluno com o id {id} informado.");
+            if (aluno == null)
+                throw new Exception($"Não existe aluno com o id {id} informado.");
 
-        //    return Ok(aluno);
-        //}
+            return Ok(aluno);
+        }
 
         //[HttpGet("ByName")]
         //public IActionResult ObterPorNome(string nome, string sobrenome)
@@ -51,7 +71,19 @@ namespace SmartSchool.API.Controllers
         //    return Ok(aluno);
         //}
         //// POST api/<AlunoController>
+  
+
+        /// <summary>
+        /// Cria um novo Aluno
+        /// </summary>
+        /// <returns>Http status 201(Created)</returns>
+        /// <response code="201">Aluno criado com sucesso</response>
+        /// <response code="400">Dados inconsistentes para criação do Aluno</response>
+        /// <response code="500">Erro inesperado</response> 
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(500, Type = typeof(TratamentoErroDto))]
         public StatusCodeResult Criar(AlunoDto aluno)
         {
             this._alunoServico.CriarAluno(aluno);
@@ -59,60 +91,50 @@ namespace SmartSchool.API.Controllers
             return this.StatusCode((int)HttpStatusCode.Created);
         }
 
-            //    return BadRequest("Aluno não cadastrado.");
-            //}
+        /// <summary>
+		/// Efetua alteração de Aluno
+		/// </summary>
+		/// <returns>Http status 204(No Content)</returns>
+		/// <response code="204">Aluno alterado com Sucesso</response>
+		/// <response code="400">Dados para alteração de Aluno inconsistentes.</response>
+		/// <response code="404">Aluno inexistente</response>
+		/// <response code="500">Erro inesperado</response> 
+        [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(404, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(500, Type = typeof(TratamentoErroDto))]
+        public StatusCodeResult Alterar(Guid id, AlterarAlunoDto alunoDto)
+        {
+            if (alunoDto == null)
+                throw new ArgumentNullException(null, "Objeto Usuário nulo (não foi informado).");
 
-            //// PUT api/<AlunoController>/5
-            //[HttpPut("{id}")]
-            //public IActionResult Put(int id, Aluno aluno)
-            //{
-            //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
+            if (id.Equals(Guid.Empty))
+                throw new ArgumentNullException(null, "Identificador do Usuário é inválido ou nulo");
 
-            //    if (alunoObtido == null)
-            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
+            alunoDto.ID = id;
 
-            //    this._alunoServico.Update(aluno);
-            //    if (this._alunoServico.SaveChanges())
-            //    {
-            //        return Ok(aluno);
-            //    }
+            this._alunoServico.AlterarAluno(id, alunoDto);
 
-            //    return BadRequest("Aluno não atualizado.");
-            //}
-
-            //[HttpPatch("{id}")]
-            //public IActionResult Patch(int id, Aluno aluno)
-            //{
-            //    var alunoObtido = _alunoServico.ObterAlunoPorId(id);
-
-            //    if (alunoObtido == null)
-            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
-
-            //    this._alunoServico.Update(aluno);
-            //    if (this._alunoServico.SaveChanges())
-            //    {
-            //        return Ok(aluno);
-            //    }
-
-            //    return BadRequest("Aluno não atualizado.");
-            //}
-
-            //// DELETE api/<AlunoController>/5
-            //[HttpDelete("{id}")]
-            //public IActionResult Delete(int id)
-            //{
-            //    var aluno = _alunoServico.ObterAlunoPorId(id);
-
-            //    if (aluno == null)
-            //        throw new Exception($"Não foi encontrado o aluno com ID {id} informado.");
-
-            //    this._alunoServico.Remove(aluno);
-            //    if (this._alunoServico.SaveChanges())
-            //    {
-            //        return Ok("Aluno deletado.");
-            //    }
-
-            //    return BadRequest("Aluno não deletado.");
-            //}
+            return this.StatusCode((int)HttpStatusCode.Created);
         }
+
+        /// <summary>
+        /// Exclui um Aluno específico
+        /// </summary>
+        /// <response code="204">Aluno excluído com Sucesso</response>
+        /// /// <response code="400">Dados para exclusão do Usuário inconsistentes.</response>
+        /// <response code="404">Usuário inexistente</response>
+        /// <response code="500">Erro inesperado</response> 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(404, Type = typeof(TratamentoErroDto))]
+        [ProducesResponseType(500, Type = typeof(TratamentoErroDto))]
+        public StatusCodeResult ExcluirAluno(Guid id)
+        {
+            this._alunoServico.Remover(id);
+            return this.StatusCode(204);
+        }
+    }
 }

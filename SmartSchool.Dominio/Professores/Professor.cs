@@ -9,10 +9,10 @@ namespace SmartSchool.Dominio.Professores
 {
     public class Professor : IEntidade
     {
-        public Guid ID { get; set; }
-        public int Matricula { get; set; }
-        public string Nome { get; set; }
-        public IEnumerable<Disciplina> Disciplinas { get; set; }
+        public Guid ID { get; private set; }
+        public int Matricula { get; private set; }
+        public string Nome { get; private set; }
+        public IEnumerable<Disciplina> Disciplinas { get; private set; }
 
         public Professor() { }
         public Professor(Guid id, string nome) 

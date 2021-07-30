@@ -10,10 +10,10 @@ namespace SmartSchool.Dominio.Disciplinas
 {
     public class Disciplina : IEntidade
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public int ProfessorId { get; set; }
-        public Professor Professor { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public int ProfessorId { get; private set; }
+        public Professor Professor { get; private set; }
         //public IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
 
         public Disciplina() { }
